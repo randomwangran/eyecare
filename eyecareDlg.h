@@ -41,7 +41,8 @@ private:
 	CComboBox	m_USE;
 	CComboBox	m_REST;
 	BOOL	m_Autorun;
-	CString	m_TipTime;
+	CComboBox m_TIP;
+	//CString	m_TipTime;
 	CString	m_strLastRest;
 	//}}AFX_DATA
 

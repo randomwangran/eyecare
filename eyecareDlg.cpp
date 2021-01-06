@@ -220,7 +220,7 @@ CEyecareDlg::CEyecareDlg(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(CEyecareDlg)
 	m_Autorun = FALSE;
-	m_TipTime = _T("");
+	//m_TipTime = _T("");
 	m_strLastRest = _T("");
 	//}}AFX_DATA_INIT
 	// Note that LoadIcon does not require a subsequent DestroyIcon in Win32
@@ -249,7 +249,8 @@ void CEyecareDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBOUSE, m_USE);
 	DDX_Control(pDX, IDC_COMBOREST, m_REST);
 	DDX_Check(pDX, IDC_CHECKAUTORUN, m_Autorun);
-	DDX_CBString(pDX, IDC_COMBOTIP, m_TipTime);
+	//DDX_CBString(pDX, IDC_COMBOTIP, m_TipTime);
+	DDX_Control(pDX, IDC_COMBOTIP, m_TIP);
 	DDX_Text(pDX, IDC_LASTREST, m_strLastRest);
 	//}}AFX_DATA_MAP
 }
@@ -559,16 +560,16 @@ void CEyecareDlg::ReadConfigFile(){
 		m_REST.SetCurSel(REST_DEFAULT);	
 		m_REST.GetWindowText(c);
 		restTime = atoi(c);	
-	}//??????????????奇怪
-	//tip<7时，列表框值会变为 tip*10
+	}
+	
 	if(tip>0){//自定义提醒时间
 		c.Format("%d", tip);
-		m_TipTime=c;
+		m_TIP.SetWindowText(c);
 		tipTime = tip;	
 		
 	}else{
-		c.Format("%d",TIP_DEFAULT);
-		m_TipTime= _T(c);
+		m_TIP.SetCurSel(TIP_DEFAULT);
+		m_TIP.GetWindowText(c);
 		tipTime = atoi(c);
 	}
 	c="";
@@ -591,7 +592,7 @@ void CEyecareDlg::WriteConfigFile(){
 		cs,CONFIG_FILE);
 	restTime=atoi(cs);
 	
-	cs=m_TipTime;//提醒时间
+	m_TIP.GetWindowText(cs);//提醒时间
 	::WritePrivateProfileString(TIP_FIELD, VALUE,
 		cs,CONFIG_FILE);
 	tipTime=atoi(cs);
@@ -702,7 +703,8 @@ void CEyecareDlg::OnMyOK()
 				"注意",MB_ICONASTERISK);
 			return;		
 		}
-		temp2= atoi(m_TipTime);
+		m_TIP.GetWindowText(cs);
+		temp2= atoi(cs);
 		if(temp2 <= 0){
 			MessageBox("提醒时间必须大于 0！",
 				"注意",MB_ICONASTERISK);
