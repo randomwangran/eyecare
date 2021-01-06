@@ -34,6 +34,7 @@ int restTime;
 int tipTime;
 time_t lastTime;
 int exitAfterRest;
+int runOnce;
 
 CFaceDlg *lpFace=NULL;
 BOOL isEnable = TRUE;
@@ -109,19 +110,6 @@ typedef int (WINAPI*  lpCtrlAltDel_Enable_Disable)(BOOL);
 #endif
 }
 
-void CALLBACK RestProc(//休息结束回调
-				   HWND hWnd,      // handle of CWnd that called SetTimer
-				   UINT nMsg,      // WM_TIMER
-				   UINT nIDEvent,   // timer identification
-				   DWORD dwTime    // system time
-					   ){
-
-	if(exitAfterRest == 1){
-		//AfxPostQuitMessage(0);
-		::SendMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);
-	}
-}
-
 void CALLBACK TipTimerProc(//提醒定时器的回调函数
    HWND hWnd,      // handle of CWnd that called SetTimer
    UINT nMsg,      // WM_TIMER
@@ -135,7 +123,7 @@ void CALLBACK TipTimerProc(//提醒定时器的回调函数
 		lpFace = new CFaceDlg();
 		lpFace->Create(IDD_FACEDLG_DIALOG);
 		::SetTimer(wnd->GetSafeHwnd(), USE_TIMER, 
-			WAIT_DIALOG_INIT*MINUTE*SECOND, RestProc);		
+			WAIT_DIALOG_INIT*MINUTE*SECOND, NULL);		
 		Enable(FALSE);//锁定
 		break;
 	default:
@@ -236,6 +224,13 @@ CEyecareDlg::CEyecareDlg(CWnd* pParent /*=NULL*/)
 	tipTime = tip;
 	int ex = ::GetPrivateProfileInt(EXIT_AFTER_REST, VALUE, 0, CONFIG_FILE);
 	exitAfterRest = ex;
+	runOnce = 0;
+	//如带命令行-once，只运行一次
+	CString s(AfxGetApp()->m_lpCmdLine);
+	if(s == CString(_T("-once"))){
+		runOnce = 1;
+		//MessageBox(s, "注意",MB_ICONASTERISK );
+	}
 }
 CEyecareDlg::~CEyecareDlg(){
 #ifdef	_DEBUG
@@ -329,6 +324,7 @@ BOOL CEyecareDlg::OnInitDialog()
 		}
 	}
 
+
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
@@ -358,8 +354,14 @@ BOOL CEyecareDlg::OnInitDialog()
 	if(m_Autorun)
 		WriteRegister();//初始时写注册表
 
-	::SetTimer(GetSafeHwnd(), USE_TIMER, 
-		useTime*MINUTE*SECOND, TimerProc);
+	//设置定时器
+	if(runOnce == 1){
+		::SetTimer(GetSafeHwnd(), USE_TIMER, 
+			1, TimerProc);	
+	}else{
+		::SetTimer(GetSafeHwnd(), USE_TIMER, 
+			useTime*MINUTE*SECOND, TimerProc);	
+	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

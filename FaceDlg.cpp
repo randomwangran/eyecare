@@ -105,6 +105,7 @@ void CALLBACK TimerProc(//休息定时器的回调函数
 extern int useTime;
 extern time_t lastTime;
 extern int exitAfterRest;
+extern int runOnce;
 void Enable(BOOL);
 extern CFaceDlg *lpFace;
 void CFaceDlg::PostNcDestroy() 
@@ -119,7 +120,7 @@ void CFaceDlg::PostNcDestroy()
 	main->UpdateLastRest();
 	
 	//休息结束退出
-	if(exitAfterRest == 1){
+	if((exitAfterRest == 1) || (runOnce == 1)){
 		TRACE("exit app");
 		PostQuitMessage(0);
 	}else{
