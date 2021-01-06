@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: eyecare - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Release/eyecare.res" /d "NDEBUG" /d "_AFXDLL" "Z:\eyecareNew\eyecare\eyecare.rc"" 
+Creating temporary file "C:\DOCUME~1\admin\LOCALS~1\Temp\RSP412.tmp" with contents
+[
+/nologo /MD /W3 /GX /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Release/" /Fp"Release/eyecare.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"Z:\eyecareNew\eyecare\eyecare.cpp"
+"Z:\eyecareNew\eyecare\eyecareDlg.cpp"
+"Z:\eyecareNew\eyecare\FaceDlg.cpp"
+"Z:\eyecareNew\eyecare\TipDialog.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\admin\LOCALS~1\Temp\RSP412.tmp" 
+Creating temporary file "C:\DOCUME~1\admin\LOCALS~1\Temp\RSP413.tmp" with contents
+[
+/nologo /MD /W3 /GX /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Release/" /Fp"Release/eyecare.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"Z:\eyecareNew\eyecare\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\admin\LOCALS~1\Temp\RSP413.tmp" 
+Creating temporary file "C:\DOCUME~1\admin\LOCALS~1\Temp\RSP414.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:no /pdb:"Release/eyecare.pdb" /machine:I386 /out:"D:\ÑÛ±¦±´\eyecare.exe" 
+.\Release\eyecare.obj
+.\Release\eyecareDlg.obj
+.\Release\FaceDlg.obj
+.\Release\StdAfx.obj
+.\Release\TipDialog.obj
+.\Release\eyecare.res
+]
+Creating command line "link.exe @C:\DOCUME~1\admin\LOCALS~1\Temp\RSP414.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+eyecare.cpp
+eyecareDlg.cpp
+FaceDlg.cpp
+TipDialog.cpp
+Generating Code...
+Linking...
+Creating command line "bscmake.exe /nologo /o"Release/eyecare.bsc"  .\Release\StdAfx.sbr .\Release\eyecare.sbr .\Release\eyecareDlg.sbr .\Release\FaceDlg.sbr .\Release\TipDialog.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+eyecare.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
